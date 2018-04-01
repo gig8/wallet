@@ -11,44 +11,47 @@ cmake_minimum_required(VERSION 3.4.1)
 # Gradle automatically packages shared libraries with your APK.
 
 add_library( # Sets the name of the library.
-             native-x13
+             native-crypto
 
              # Sets the library as a shared library.
              SHARED
 
              # Provides a relative path to your source file(s).
-             src/main/cpp/native-x13.cpp
-             src/main/cpp/aes_helper.c
-             src/main/cpp/blake.c
-             src/main/cpp/bmw.c
-             src/main/cpp/cubehash.c
-             src/main/cpp/echo.c
-             src/main/cpp/fugue.c
-             src/main/cpp/groestl.c
-             src/main/cpp/hamsi.c
-             src/main/cpp/hamsi_helper.c
-             src/main/cpp/hashblock.h
-             src/main/cpp/jh.c
-             src/main/cpp/keccak.c
-             src/main/cpp/luffa.c
-             src/main/cpp/shavite.c
-             src/main/cpp/simd.c
-             src/main/cpp/skein.c
-             src/main/cpp/sph_blake.h
-             src/main/cpp/sph_bmw.h
-             src/main/cpp/sph_cubehash.h
-             src/main/cpp/sph_echo.h
-             src/main/cpp/sph_fugue.h
-             src/main/cpp/sph_groestl.h
-             src/main/cpp/sph_hamsi.h
-             src/main/cpp/sph_jh.h
-             src/main/cpp/sph_keccak.h
-             src/main/cpp/sph_luffa.h
-             src/main/cpp/sph_shavite.h
-             src/main/cpp/sph_simd.h
-             src/main/cpp/sph_skein.h
-             src/main/cpp/sph_types.h
-             src/main/cpp/uint256.h )
+             src/main/cpp/native-crypto.cpp
+
+             # x13
+             src/main/cpp/x13/aes_helper.c
+             src/main/cpp/x13/blake.c
+             src/main/cpp/x13/bmw.c
+             src/main/cpp/x13/cubehash.c
+             src/main/cpp/x13/echo.c
+             src/main/cpp/x13/fugue.c
+             src/main/cpp/x13/groestl.c
+             src/main/cpp/x13/hamsi_helper.c
+             src/main/cpp/x13/hamsi.c
+             src/main/cpp/x13/jh.c
+             src/main/cpp/x13/keccak.c
+             src/main/cpp/x13/luffa.c
+             src/main/cpp/x13/shavite.c
+             src/main/cpp/x13/simd.c
+             src/main/cpp/x13/skein.c
+           )
+
+target_include_directories( native-crypto
+                            PRIVATE
+                            src/main/cpp/x13 )
+
+#target_include_directories( native-crypto
+#                            PRIVATE
+#                            src/main/cpp/scrypt )
+
+#target_include_directories( native-crypto
+#                            PRIVATE
+#                            src/../../secp256k1/include
+#                            src/../../secp256k1/src
+#                            src/../../secp256k1 )
+
+
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by
@@ -68,7 +71,7 @@ find_library( # Sets the name of the path variable.
 # build script, prebuilt third-party libraries, or system libraries.
 
 target_link_libraries( # Specifies the target library.
-                       native-x13
+                       native-crypto
 
                        # Links the target library to the log library
                        # included in the NDK.

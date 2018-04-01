@@ -4,7 +4,7 @@ public class X13 {
 
     // Used to load the 'native-x13' library on startup.
     static {
-        System.loadLibrary("native-x13");
+        System.loadLibrary("native-crypto");
     }
 
     private static final String    HEXES    = "0123456789ABCDEF";
