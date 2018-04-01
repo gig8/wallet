@@ -23,4 +23,14 @@ public class ExampleInstrumentedTest {
 
         assertEquals("com.gig8.coinj.test", appContext.getPackageName());
     }
+
+    @Test
+    public void hashBytes() {
+        byte[] bytes = new byte[100];
+        byte[] hashed = Crypto.hashX13(bytes);
+        String result = Crypto.getHex(hashed);
+        android.util.Log.i("hashBytes", result);
+
+        assertEquals("3BEB76083F05AFF1B846E32D6EB29217D49DB162A6265E91568F59DD9220289D", result);
+    }
 }

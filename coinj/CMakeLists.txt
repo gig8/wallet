@@ -11,13 +11,13 @@ cmake_minimum_required(VERSION 3.4.1)
 # Gradle automatically packages shared libraries with your APK.
 
 add_library( # Sets the name of the library.
-             native-crypto
+             native-x13
 
              # Sets the library as a shared library.
              SHARED
 
              # Provides a relative path to your source file(s).
-             src/main/cpp/native-crypto.cpp
+             src/main/cpp/native-x13.cpp
              src/main/cpp/aes_helper.c
              src/main/cpp/blake.c
              src/main/cpp/bmw.c
@@ -68,7 +68,7 @@ find_library( # Sets the name of the path variable.
 # build script, prebuilt third-party libraries, or system libraries.
 
 target_link_libraries( # Specifies the target library.
-                       native-crypto
+                       native-x13
 
                        # Links the target library to the log library
                        # included in the NDK.
