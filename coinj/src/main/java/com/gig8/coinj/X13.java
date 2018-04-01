@@ -1,6 +1,6 @@
 package com.gig8.coinj;
 
-public class Crypto {
+public class X13 {
 
     // Used to load the 'native-x13' library on startup.
     static {
@@ -21,6 +21,5 @@ public class Crypto {
      * A native method that is implemented by the 'native-lib' native library,
      * which is packaged with this application.
      */
-    public native String stringFromJNI();
-    public static native byte[] hashX13(byte[] bytes);
+    public static native byte[] getHash(byte[] bytes);
 }

@@ -8,7 +8,7 @@
 extern "C" JNIEXPORT jbyteArray
 
 JNICALL
-Java_com_gig8_coinj_Crypto_hashX13(
+Java_com_gig8_coinj_X13_getHash(
         JNIEnv *env,
         jobject, /* this */
         jbyteArray header) {
@@ -25,14 +25,4 @@ Java_com_gig8_coinj_Crypto_hashX13(
         (env)->ReleaseByteArrayElements(header, P, JNI_ABORT);
     }
     return DK;
-}
-
-extern "C" JNIEXPORT jstring
-
-JNICALL
-Java_com_gig8_coinj_Crypto_stringFromJNI(
-        JNIEnv *env,
-        jobject /* this */) {
-    std::string hello = "Hello from C++";
-    return env->NewStringUTF(hello.c_str());
 }
