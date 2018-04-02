@@ -129,6 +129,7 @@ public class Transaction extends ChildMessage {
 
     // These are bitcoin serialized.
     private long version;
+    private long time;
     private ArrayList<TransactionInput> inputs;
     private ArrayList<TransactionOutput> outputs;
 
@@ -205,6 +206,7 @@ public class Transaction extends ChildMessage {
     public Transaction(NetworkParameters params) {
         super(params);
         version = 1;
+        time = Utils.currentTimeSeconds();
         inputs = new ArrayList<>();
         outputs = new ArrayList<>();
         // We don't initialize appearsIn deliberately as it's only useful for transactions stored in the wallet.
@@ -256,10 +258,23 @@ public class Transaction extends ChildMessage {
      */
     @Override
     public Sha256Hash getHash() {
+        byte[] data = unsafeBitcoinSerialize();
+        String strData = getHex(data);
+        System.out.println(strData);
         if (hash == null) {
-            hash = Sha256Hash.wrapReversed(Sha256Hash.hashTwice(unsafeBitcoinSerialize()));
+            hash = Sha256Hash.wrapReversed(Sha256Hash.hashTwice(data));
         }
         return hash;
+    }
+
+    private static final String    HEXES    = "0123456789ABCDEF";
+
+    static String getHex(byte[] raw) {
+        final StringBuilder hex = new StringBuilder(2 * raw.length);
+        for (final byte b : raw) {
+            hex.append(HEXES.charAt((b & 0xF0) >> 4)).append(HEXES.charAt((b & 0x0F)));
+        }
+        return hex.toString();
     }
 
     /**
@@ -469,6 +484,14 @@ public class Transaction extends ChildMessage {
         return true;
     }
 
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long nTime) {
+        this.time = nTime;
+    }
+
     /**
      * Returns the earliest time at which the transaction was seen (broadcast or included into the chain),
      * or the epoch if that information isn't available.
@@ -529,8 +552,8 @@ public class Transaction extends ChildMessage {
 
     protected static int calcLength(byte[] buf, int offset) {
         VarInt varint;
-        // jump past version (uint32)
-        int cursor = offset + 4;
+        // jump past version (uint32) and time (uint32)
+        int cursor = offset + 8;
 
         int i;
         long scriptLen;
@@ -568,7 +591,8 @@ public class Transaction extends ChildMessage {
         cursor = offset;
 
         version = readUint32();
-        optimalEncodingMessageSize = 4;
+        time = readUint32();
+        optimalEncodingMessageSize = 8;
 
         // First come the inputs.
         long numInputs = readVarInt();
@@ -1130,6 +1154,7 @@ public class Transaction extends ChildMessage {
     @Override
     protected void bitcoinSerializeToStream(OutputStream stream) throws IOException {
         uint32ToByteStreamLE(version, stream);
+        uint32ToByteStreamLE(time, stream);
         stream.write(new VarInt(inputs.size()).encode());
         for (TransactionInput in : inputs)
             in.bitcoinSerialize(stream);

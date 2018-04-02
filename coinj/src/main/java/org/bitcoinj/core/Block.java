@@ -17,13 +17,12 @@
 
 package org.bitcoinj.core;
 
+import com.gig8.coinj.X13;
 import com.google.common.annotations.*;
 import com.google.common.base.*;
 import com.google.common.collect.*;
 import org.bitcoinj.script.*;
 import org.slf4j.*;
-import com.gig8.coinj.X13;
-
 
 import javax.annotation.*;
 import java.io.*;

@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-// https://github.com/bitcoinj/bitcoinj/issues/1477
-/* forget Windows
+/*
 package org.bitcoinj.store;
 
 import sun.misc.*;
