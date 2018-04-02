@@ -22,6 +22,8 @@ import com.google.common.base.*;
 import com.google.common.collect.*;
 import org.bitcoinj.script.*;
 import org.slf4j.*;
+import com.gig8.coinj.X13;
+
 
 import javax.annotation.*;
 import java.io.*;
@@ -404,7 +406,7 @@ public class Block extends Message {
         try {
             ByteArrayOutputStream bos = new UnsafeByteArrayOutputStream(HEADER_SIZE);
             writeHeader(bos);
-            return Sha256Hash.wrapReversed(Sha256Hash.hashTwice(bos.toByteArray()));
+            return Sha256Hash.wrapReversed(X13.x13Digest(bos.toByteArray()));
         } catch (IOException e) {
             throw new RuntimeException(e); // Cannot happen.
         }
