@@ -61,8 +61,8 @@ public class ECKeyTest {
 
     private static CharSequence PASSWORD1 = "my hovercraft has eels";
     private static CharSequence WRONG_PASSWORD = "it is a snowy day today";
-    private static final NetworkParameters MAINNET = MainNetParams.get();
     private static final NetworkParameters TESTNET = TestNet3Params.get();
+    private static final NetworkParameters MAINNET = MainNetParams.get();
     private static final NetworkParameters UNITTEST = UnitTestParams.get();
 
     @Before

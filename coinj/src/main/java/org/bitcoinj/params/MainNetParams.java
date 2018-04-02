@@ -56,6 +56,13 @@ public class MainNetParams extends AbstractBitcoinNetParams {
         id = ID_MAINNET;
         subsidyDecreaseBlockCount = 210000;
         spendableCoinbaseDepth = 100;
+
+
+        String merkleHash = genesisBlock.getMerkleRoot().toString();
+        String targetMerkleHash = "b3d8b0c93a5a36fc81b2cdc8a5ca2adb781f4d22530cd4671cf2e2c8181754d6";
+        checkState(merkleHash.equals(targetMerkleHash),
+                "merkleHash mismatch: %s vs %s", merkleHash, targetMerkleHash);
+
         String genesisHash = genesisBlock.getHashAsString();
         String targetGenesisHash = "00000fea25f87416682baa54946a1d156909d0959588eb573a0ae16a64230c61";
         checkState(genesisHash.equals(targetGenesisHash),

@@ -267,7 +267,7 @@ public class Transaction extends ChildMessage {
         return hash;
     }
 
-    private static final String    HEXES    = "0123456789ABCDEF";
+    private static final String    HEXES    = "0123456789abcdef";
 
     static String getHex(byte[] raw) {
         final StringBuilder hex = new StringBuilder(2 * raw.length);

@@ -116,11 +116,24 @@ public abstract class NetworkParameters {
     private static Block createGenesis(NetworkParameters n) {
         Block genesisBlock = new Block(n, Block.BLOCK_VERSION_GENESIS);
         Transaction t = new Transaction(n);
-        t.setTime(1521404888);
+//        t.setTime(genesisBlock.getTimeSeconds());
+
+        switch (n.getId()) {
+            case ID_MAINNET:
+                t.setTime(1521404888);
+                break;
+            case ID_TESTNET:
+                t.setTime(1521404889);
+                break;
+            case ID_REGTEST:
+                t.setTime(1521404890);
+                break;
+        }
+
         try {
             // A script containing the difficulty bits and the following message:
             //
-            //   "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks"
+            //   "POTUS Tweets:'And yet, there is NO COLLUSION!"
             byte[] bytes = Utils.HEX.decode
                     ("00012a2e504f545553205477656574733a27416e64207965742c207468657265206973204e4f20434f4c4c5553494f4e2127");
             t.addInput(new TransactionInput(n, t, bytes));
@@ -137,10 +150,6 @@ public abstract class NetworkParameters {
             throw new RuntimeException(e);
         }
         genesisBlock.addTransaction(t);
-
-        String merkleHash = genesisBlock.getMerkleRoot().toString();
-        checkState(merkleHash.equals("b3d8b0c93a5a36fc81b2cdc8a5ca2adb781f4d22530cd4671cf2e2c8181754d6"), merkleHash);
-
         return genesisBlock;
     }
 

@@ -39,30 +39,41 @@ public class TestNet3Params extends AbstractBitcoinNetParams {
         super();
         id = ID_TESTNET;
         // Genesis hash is 000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943
-        packetMagic = 0x0b110907;
+        packetMagic = 0x304a304b;
         interval = INTERVAL;
         targetTimespan = TARGET_TIMESPAN;
-        maxTarget = Utils.decodeCompactBits(0x1d00ffffL);
-        port = 18333;
+        maxTarget = Utils.decodeCompactBits(504365055L);
+        port = 17430;
         addressHeader = 111;
         p2shHeader = 196;
         dumpedPrivateKeyHeader = 239;
         segwitAddressHrp = "tb";
-        genesisBlock.setTime(1296688602L);
-        genesisBlock.setDifficultyTarget(0x1d00ffffL);
-        genesisBlock.setNonce(414098458);
+        genesisBlock.setTime(1521404889L);
+        genesisBlock.setDifficultyTarget(504365055L);
+        genesisBlock.setNonce(212863);
         spendableCoinbaseDepth = 100;
         subsidyDecreaseBlockCount = 210000;
+
+        String merkleHash = genesisBlock.getMerkleRoot().toString();
+        String targetMerkleHash = "a32d0f30e30b2c9e49ddb51c20634e08ebcd58bfa49b9f2f43f872e4351afb09";
+        checkState(merkleHash.equals(targetMerkleHash),
+              "merkleHash mismatch: %s vs %s", merkleHash, targetMerkleHash);
+
         String genesisHash = genesisBlock.getHashAsString();
-        checkState(genesisHash.equals("000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943"));
+        String targetGenesisHash = "0000029041228cd387bc4e53343012be1d77f2a78bd562219c9db3910ab11b3c";
+        checkState(genesisHash.equals(targetGenesisHash),
+                "genesisHash mismatch: %s vs %s", genesisHash, targetGenesisHash);
+
         alertSigningKey = Utils.HEX.decode("04302390343f91cc401d56d68b123028bf52e5fca1939df127f63c6467cdf9c8e2c14b61104cf817d0b780da337893ecc4aaff1309e536162dabbdb45200ca2b0a");
 
         dnsSeeds = new String[] {
+                /*
                 "testnet-seed.bitcoin.jonasschnelli.ch", // Jonas Schnelli
                 "testnet-seed.bluematt.me",              // Matt Corallo
                 "testnet-seed.bitcoin.petertodd.org",    // Peter Todd
                 "testnet-seed.bitcoin.schildbach.de",    // Andreas Schildbach
                 "bitcoin-testnet.bloqseeds.net",         // Bloq
+                */
         };
         addrSeeds = null;
         bip32HeaderPub = 0x043587CF;

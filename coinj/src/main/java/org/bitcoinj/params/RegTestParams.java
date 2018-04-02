@@ -35,7 +35,7 @@ public class RegTestParams extends TestNet2Params {
         interval = Integer.MAX_VALUE;
         maxTarget = MAX_TARGET;
         subsidyDecreaseBlockCount = 150;
-        port = 18444;
+        port = 17440;
         id = ID_REGTEST;
 
         majorityEnforceBlockUpgrade = MainNetParams.MAINNET_MAJORITY_ENFORCE_BLOCK_UPGRADE;
@@ -55,10 +55,16 @@ public class RegTestParams extends TestNet2Params {
         synchronized (RegTestParams.class) {
             if (genesis == null) {
                 genesis = super.getGenesisBlock();
-                genesis.setNonce(2);
-                genesis.setDifficultyTarget(0x207fFFFFL);
-                genesis.setTime(1296688602L);
-                checkState(genesis.getHashAsString().toLowerCase().equals("0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206"));
+                genesis.setNonce(1233925);
+                genesis.setDifficultyTarget(504365055L);
+                genesis.setTime(1521404890L);
+
+                String merkleHash = genesisBlock.getMerkleRoot().toString();
+                String targetMerkleHash = "2662a051e80c2d88ad3798fec1a72f6c96ae30119b6ac44279cf62613478d803";
+                checkState(merkleHash.equals(targetMerkleHash),
+                        "merkleHash mismatch: %s vs %s", merkleHash, targetMerkleHash);
+
+                checkState(genesis.getHashAsString().toLowerCase().equals("00000da7fd87e355ecc99324ed6df0036881c6bf07dc51ef8810cc456f71fde1"));
             }
             return genesis;
         }
